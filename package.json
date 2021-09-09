@@ -1,0 +1,14 @@
+{
+    "name": "noteskeeper",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "yarn workspace backend build",
+        "start": "yarn workspace backend start:dev"
+    },
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "author": "Jin Hao"
+}
