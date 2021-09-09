@@ -2,20 +2,31 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
-  build-n-test-backend:
+  backend-test:
     working_directory: ~/crud-application/backend
-    executor:
-      name: node/default
-      tag: '12'
+    docker:
+      - image: circleci/node:12
     steps:
+      - run:
+          name: Linux update
+          command: |
+            sudo apt-get update 
+            sudo apt-get install -y lsb-release libudev-dev libusb-dev usbutils
+            sudo apt-get clean all
+            lsb_release -a
       - checkout:
           path: ~/crud-application
-      - node/install-packages:
-          app-dir: ~/crud-application/backend
-          pkg-manager: yarn
+      - attach_workspace:
+          at: ~/crud-application
+      - run:
+          name: Install Dependencies
+          command: cd backend; yarn install
+      - run:
+          name: Run tests
+          command: cd backend; yarn run test
       - run:
           command: yarn run test
 workflows:
-  build-n-test:
+  testing:
     jobs:
-      - build-n-test-backend
+      - backend-test
