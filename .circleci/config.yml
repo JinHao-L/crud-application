@@ -3,22 +3,33 @@ orbs:
   node: circleci/node@3.0.0
 jobs:
   backend-test:
-    working_directory: ~/crud-application/backend
     docker:
       - image: circleci/node:12
+
+    working_directory: ~/crud-application/backend
+
     steps:
       - checkout:
           path: ~/crud-application
-      - attach_workspace:
-          at: ~/crud-application
-      - run:
-          name: Install Dependencies
-          command: cd backend; yarn install
-      - run:
-          name: Run tests
-          command: cd backend; yarn run test
-      - run:
-          command: yarn run test
+      - checkout:
+            path: ~/repo
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: yarn test
 workflows:
   testing:
     jobs:
