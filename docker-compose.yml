@@ -1,0 +1,18 @@
+# For local development purposes only!
+version: '3.8'
+services:
+  frontend:
+    image: frontend
+    build: ./frontend
+    depends_on: 
+      - backend
+    ports: 
+      - 3000:3000
+  backend:
+    image: backend
+    build: ./backend
+    ports:
+      - 5000:5000
+
+volumes: 
+  postgres:
