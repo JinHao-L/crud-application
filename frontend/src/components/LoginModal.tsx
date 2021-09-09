@@ -1,4 +1,3 @@
-import { request } from "https";
 import React, { useState } from "react";
 import Button from "./Button";
 
@@ -11,24 +10,9 @@ interface SignInModalProps {
 const LoginModal: React.FC<SignInModalProps> = ({
   isVisible = false,
   handleClose,
-  onSignUp,
 }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const login = () => {
-    if (!username) {
-      setErrorMsg("Username cannot be blank");
-      return false;
-    }
-    if (!password) {
-      setErrorMsg("Password cannot be blank");
-      return false;
-    }
-    
-    request("POST")
-  };
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   if (!isVisible) {
     return null;
@@ -67,7 +51,7 @@ const LoginModal: React.FC<SignInModalProps> = ({
                   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Username"
                   value={username}
-                  onChange={e => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
@@ -90,7 +74,7 @@ const LoginModal: React.FC<SignInModalProps> = ({
                   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Your password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>

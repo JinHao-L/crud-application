@@ -47,7 +47,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
     edits: { title?: string; content?: string }
   ) => {
     try {
-      const result = await updateNote(id, edits);
+      await updateNote(id, edits);
       getLatestNotes();
       setVisible(false);
     } catch (error) {
@@ -62,7 +62,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
   };
   const onCreate = async (note: { title: string; content: string }) => {
     try {
-      const result = await createNote(note);
+      await createNote(note);
       getLatestNotes();
       setVisible(false);
     } catch (error) {
@@ -73,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
 
   const onDelete = async (note: { id: number }) => {
     try {
-      const result = await deleteNote(note.id);
+      await deleteNote(note.id);
       getLatestNotes();
     } catch (error) {
       console.log(error);
