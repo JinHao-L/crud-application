@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/node@3.0.0
+  node: circleci/node@4.7.0
 jobs:
   build-n-test-backend:
     working_directory: ~/crud-application/backend
@@ -9,7 +9,8 @@ jobs:
     steps:
       - checkout:
           path: ~/crud-application
-      - node/install-packages
+      - node/install-packages:
+          app-dir: ~/crud-application/backend
       - run:
           command: yarn run test
 workflows:
