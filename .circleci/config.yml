@@ -7,13 +7,6 @@ jobs:
     docker:
       - image: circleci/node:12
     steps:
-      - run:
-          name: Linux update
-          command: |
-            sudo apt-get update 
-            sudo apt-get install -y lsb-release libudev-dev libusb-dev usbutils
-            sudo apt-get clean all
-            lsb_release -a
       - checkout:
           path: ~/crud-application
       - attach_workspace:
