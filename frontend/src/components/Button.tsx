@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({
   type='button',
   onClick,
   children,
-  buttonColor = "indigo",
+  buttonColor = "purple",
   textColor = "white",
 }) => {
   return (
