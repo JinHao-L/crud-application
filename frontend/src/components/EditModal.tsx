@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Note } from "../services";
 
 interface EditModalProps {
-  isVisible: boolean;
   handleClose: () => void;
-  type: "create" | "edit";
   targetNote?: Note;
   onCreate: (note: { title: string; content: string }) => Promise<void>;
   onEdit: (
@@ -14,9 +12,7 @@ interface EditModalProps {
 }
 
 const EditModal: React.FC<EditModalProps> = ({
-  isVisible = false,
   handleClose,
-  type,
   targetNote = null,
   onCreate,
   onEdit,
@@ -24,26 +20,17 @@ const EditModal: React.FC<EditModalProps> = ({
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  useEffect(() => {
-    setTitle("");
-    setContent("");
-  }, [isVisible]);
-
   const postAction = () => {
-    if (type === "create" && !targetNote) {
+    if (targetNote === null) {
       return onCreate({ title, content });
     } else {
       const edits: any = {};
       if (title) edits.title = title;
       if (content) edits.content = content;
 
-      return onEdit(targetNote?.id || -1, edits);
+      return onEdit((targetNote as Note).id, edits);
     }
   };
-
-  if (!isVisible) {
-    return null;
-  }
 
   return (
     <div
@@ -55,7 +42,7 @@ const EditModal: React.FC<EditModalProps> = ({
         className="flex flex-col w-full bg-white rounded-lg shadow dark:bg-gray-800 lg:max-w-2xl md:max-w-xl sm:max-w-lg max-w-md px-6 py-8 md:px-8 lg:px-10"
       >
         <div className="capitalize text-center font-bold text-2xl m-5 text-gray-800">
-        {type} note
+          {targetNote ? "Edit note" : "Create note"}
         </div>
         <input
           className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
