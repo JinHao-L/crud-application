@@ -27,13 +27,14 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any): Promise<{ access_token: string }> {
+  async login(user: any): Promise<{ username: string; token: string }> {
     const payload = {
       username: user.username,
       sub: user.userId,
     };
     return {
-      access_token: this.jwtService.sign(payload),
+      username: user.username,
+      token: this.jwtService.sign(payload),
     };
   }
 

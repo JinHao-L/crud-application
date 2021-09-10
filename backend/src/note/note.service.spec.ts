@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { User } from '../users/entities/user.entity';
 import { NoteService } from './note.service';
 import { CaslModule } from '../casl/casl.module';
-import { BadRequestException } from '@nestjs/common';
 
 describe('NoteService', () => {
   let service: NoteService;

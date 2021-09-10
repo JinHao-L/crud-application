@@ -1,4 +1,10 @@
-export class Note extends Object {
+class Entity {
+  constructor(attrs) {
+    Object.assign(this, attrs);
+  }
+}
+
+export class Note extends Entity {
   id: number;
   title: string;
   content: string;
