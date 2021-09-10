@@ -8,54 +8,48 @@ import {
   Put,
   Query,
   ParseIntPipe,
-  BadRequestException,
   UseGuards,
 } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
-import { JwtAuthGuard } from '../guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guard/jwt-auth.guard';
+import { User } from '../common/decorators/user.decorator';
+import { User as UserEntity } from '../users/entities/user.entity';
 
-@UseGuards(JwtAuthGuard)
 @Controller('notes')
+@UseGuards(JwtAuthGuard)
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
   @Post()
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  create(@User() user: UserEntity, @Body() createNoteDto: CreateNoteDto) {
+    return this.noteService.create(createNoteDto, user);
   }
 
   @Get()
-  findAll(@Query('q') keyword?: string) {
+  findAll(@User() user: UserEntity, @Query('q') keyword?: string) {
     return keyword
-      ? this.noteService.findByKeyword(keyword)
-      : this.noteService.getAll();
+      ? this.noteService.findByKeyword(keyword, user)
+      : this.noteService.getAll(user);
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    const note = this.noteService.findOne(id);
-    if (!note) {
-      throw new BadRequestException('id does not exist');
-    }
-    return note;
+  findOne(@User() user: UserEntity, @Param('id', ParseIntPipe) id: number) {
+    return this.noteService.findOne(id, user);
   }
 
   @Put(':id')
   update(
+    @User() user: UserEntity,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateNoteDto: UpdateNoteDto,
   ) {
-    const note = this.noteService.update(id, updateNoteDto);
-    if (!note) {
-      throw new BadRequestException('id does not exist');
-    }
-    return note;
+    return this.noteService.update(id, updateNoteDto, user);
   }
 
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.noteService.remove(id);
+  remove(@User() user: UserEntity, @Param('id', ParseIntPipe) id: number) {
+    return this.noteService.remove(id, user);
   }
 }

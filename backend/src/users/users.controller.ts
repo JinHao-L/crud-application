@@ -1,9 +1,9 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../common/guard/jwt-auth.guard';
 import { UsersService } from '../users/users.service';
-import { Roles } from '../roles/role.decorator';
-import { RoleEnum } from '../roles/role.enum';
-import { RolesGuard } from '../guard/roles.guard';
+import { Roles } from '../common/decorators/role.decorator';
+import { RoleEnum } from '../common/types/role.enum';
+import { RolesGuard } from '../common/guard/roles.guard';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)

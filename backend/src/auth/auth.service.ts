@@ -1,4 +1,4 @@
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
@@ -40,7 +40,11 @@ export class AuthService {
   async signup(
     createUserDto: CreateUserDto,
   ): Promise<{ success: boolean; message: string }> {
-    const createdUser = await this.usersService.createUser(createUserDto);
+    const { username, password } = createUserDto;
+    const createdUser = await this.usersService.createUser({
+      username,
+      password: await bcrypt.hash(password, 12),
+    });
     if (!createdUser) {
       return {
         success: false,

@@ -59,9 +59,10 @@ Role-based access control:
 
 ### Attribute-based access control:
 - Implemented using [CASL](https://casl.js.org/) library
-- User can create and view all posts
-- User can only edit or delete their own posts
-- Admin have special privileges to create, view, edit or delete any posts
+- User has read-only access to all notes
+- User can update or delete their own notes
+- User can create new note
+- Admin can manage (create/read/update/delete) all notes
 
 ## Tech Stack
 * Backend: NestJS

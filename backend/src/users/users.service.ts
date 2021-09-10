@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { v4 } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
-import { RoleEnum } from 'src/roles/role.enum';
+import { RoleEnum } from '../common/types/role.enum';
 
 @Injectable()
 export class UsersService {
   private readonly users: User[] = [
     {
-      userId: '007',
+      userId: '000',
       username: 'admin',
       password: '$2a$12$wweSymfGwWXo.OwbJFGvEu7QV/OnI71GVKLsNqkJmjwrZi/FPJFB6',
       roles: [RoleEnum.Admin],
