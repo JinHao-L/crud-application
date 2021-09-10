@@ -48,7 +48,15 @@ export class NoteController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateNoteDto: UpdateNoteDto,
   ) {
-    return this.noteService.update(id, updateNoteDto);
+    const note = this.noteService.update(id, updateNoteDto);
+    if (!note) {
+      throw new BadRequestException({
+        statusCode: 400,
+        error: 'Bad Request',
+        message: ['id does not exist'],
+      });
+    }
+    return note;
   }
 
   @Delete(':id')
