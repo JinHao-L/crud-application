@@ -14,7 +14,7 @@ import {
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
-import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import { JwtAuthGuard } from '../guard/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)
 @Controller('notes')

@@ -1,17 +1,18 @@
-import { UsersService } from 'src/users/users.service';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/guard/jwt-auth.guard';
-import { Roles } from 'src/roles/role.decorator';
-import { Role } from 'src/roles/role.enum';
+import { JwtAuthGuard } from '../guard/jwt-auth.guard';
+import { UsersService } from '../users/users.service';
+import { Roles } from '../roles/role.decorator';
+import { RoleEnum } from '../roles/role.enum';
+import { RolesGuard } from '../guard/roles.guard';
 
-@UseGuards(JwtAuthGuard)
 @Controller('users')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   // role based authorization
   @Get()
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   getUsers(@Query('name') keyword?: string) {
     return this.usersService.getList(keyword);
   }
