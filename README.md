@@ -23,18 +23,18 @@ Marking scheme
 2. Successful GET, POST, PUT, DELETE API calls to deployed endpoints using Postman
 3. Some ability to handle common edge cases and error-resiliency. The deployed endpoint especially should not crash.
 
-## B2: Testing through Continuous Integration (CI)
+### B2: Testing through Continuous Integration (CI)
 
 Write simple test cases for your designed API and use a CI tool (Travis, etc) to automate testing.
 
 1. Successful testing for API using Mocha/Chai, or any other testing framework
 2. Ability to use Travis or any other CI tool to automate testing, including the necessary instructions to run these tests
 
-## B3: Deployment through Continuous Deployment (CD).
+### B3: Deployment through Continuous Deployment (CD).
 
 Integrate a CD tool for automated deployment to a serverless service.
 
-## B4: Implement a frontend.
+### B4: Implement a frontend.
 
 Build a frontend Single Page Application (SPA) using React, Vue or any 
 
