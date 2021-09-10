@@ -41,12 +41,37 @@ Build a frontend Single Page Application (SPA) using React, Vue or any
 1. Ability to interact with the API using the frontend
 2. Implementation of style e.g. using Bootstrap
 
+## C: Authorization & Authentication
+### Authentication
+Passport module
+- Local strategy for username/password login
+  - Bcrypt for secure one-way salted hash
+JWT
+- Use `@nestjs/jwt` for JWT manipulation
+- Use `passport-jwt` for JWT strategy
+Authentication Guard 
+- to prevent unauthenticated access to `/notes` and `/users` endpoints
+
+### Authorization
+Role-based access control:
+- Implemented by assigning roles `admin || user` to users
+- Only user with 'admin' role can access `GET /users` endpoint to see list of users
+
+### Attribute-based access control:
+- Implemented using [CASL](https://casl.js.org/) library
+- User can create and view all posts
+- User can only edit or delete their own posts
+- Admin have special privileges to create, view, edit or delete any posts
+
 ## Tech Stack
 * Backend: NestJS
 * Frontend: ReactJS with Tailwind CSS
 
 ## References
 * https://github.com/hantsy/nestjs-rest-sample
+* https://tailwindcss.com/docs
+* https://tailwindcomponents.com/
+* https://docs.nestjs.com/security/authentication
 
 ## Acknowledgments
 * CS3219 Module

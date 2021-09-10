@@ -9,11 +9,14 @@ import {
   Query,
   ParseIntPipe,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('notes')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
@@ -34,11 +37,7 @@ export class NoteController {
   findOne(@Param('id', ParseIntPipe) id: number) {
     const note = this.noteService.findOne(id);
     if (!note) {
-      throw new BadRequestException({
-        statusCode: 400,
-        error: 'Bad Request',
-        message: ['id does not exist'],
-      });
+      throw new BadRequestException('id does not exist');
     }
     return note;
   }
@@ -50,11 +49,7 @@ export class NoteController {
   ) {
     const note = this.noteService.update(id, updateNoteDto);
     if (!note) {
-      throw new BadRequestException({
-        statusCode: 400,
-        error: 'Bad Request',
-        message: ['id does not exist'],
-      });
+      throw new BadRequestException('id does not exist');
     }
     return note;
   }
