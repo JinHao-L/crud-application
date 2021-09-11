@@ -1,4 +1,4 @@
-# Task B: CRUD Application
+# Task B & C: CRUD Application, Authentication & Authorization
 
 [![Heroku](https://heroku-badge.herokuapp.com/?app=notekeeper-3219)](https://notekeeper-3219.herokuapp.com/) [![Netlify Status](https://api.netlify.com/api/v1/badges/0b44592d-3876-4cfb-a4b6-47f300e96304/deploy-status)](https://app.netlify.com/sites/notekeeper-3219/deploys) [![CircleCI](https://circleci.com/gh/JinHao-L/crud-application.svg?style=shield&circle-token=f5d0b6e666d3c15968bfb48c7cdc7dfa15f35cf3)](https://circleci.com/gh/JinHao-L/crud-application)  
 
@@ -6,7 +6,7 @@
 
 This repo consists of an implementation of a CRUD Application under the NUS CS3219 module.
 
-***Note: This branch consists of task C implementation and is not deployed to prevent confusion for markers of task B***
+***Note: This branch consists of task B & C implementation***
 
 # NoteKeeper
 A [note service](https://notekeeper-3219.netlify.app/) for you to share notes publicly 
