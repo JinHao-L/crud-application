@@ -6,6 +6,8 @@
 
 This repo consists of an implementation of a CRUD Application under the NUS CS3219 module.
 
+***Note: This branch consists of task C implementation and is not deployed to prevent confusion for markers of task B***
+
 # NoteKeeper
 A [note service](https://notekeeper-3219.netlify.app/) for you to share notes publicly 
 
