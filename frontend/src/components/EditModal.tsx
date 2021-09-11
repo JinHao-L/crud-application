@@ -69,12 +69,14 @@ const EditModal: React.FC<EditModalProps> = ({
         <div className="buttons flex">
           <button
             onClick={handleClose}
+            style={{ color: "rgba(107, 114, 128)" }}
             className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
           >
             Cancel
           </button>
           <button
             onClick={postAction}
+            style={{ color: "rgba(229, 231, 235)" }}
             className="btn border border-purple-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-purple-500"
           >
             Post

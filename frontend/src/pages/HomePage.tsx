@@ -32,7 +32,6 @@ const HomePage: React.FC<HomePageProps> = ({ username }) => {
       const notes = await getNotes();
       return setNotes(notes);
     } catch (error) {
-      console.log(error);
       setNotes([]);
     }
   };
@@ -50,7 +49,6 @@ const HomePage: React.FC<HomePageProps> = ({ username }) => {
       getLatestNotes();
       setVisible(false);
     } catch (error) {
-      console.log(error);
       openToast(error);
     }
   };
@@ -65,7 +63,6 @@ const HomePage: React.FC<HomePageProps> = ({ username }) => {
       getLatestNotes();
       setVisible(false);
     } catch (error) {
-      console.log(error);
       openToast(error);
     }
   };
@@ -75,7 +72,6 @@ const HomePage: React.FC<HomePageProps> = ({ username }) => {
       await deleteNote(note.id);
       getLatestNotes();
     } catch (error) {
-      console.log(error);
       openToast(error);
     }
   };

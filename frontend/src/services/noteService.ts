@@ -49,7 +49,6 @@ export const createNote = async (note: {
     },
     body: JSON.stringify(note),
   };
-  console.log(requestOptions);
   const response = await fetch(`${apiUrl}/notes`, requestOptions);
   return handleResponse(response);
 };
@@ -66,7 +65,6 @@ export const updateNote = async (
     },
     body: JSON.stringify(note),
   };
-  console.log(requestOptions);
   const response = await fetch(`${apiUrl}/notes/${id}`, requestOptions);
   return handleResponse(response);
 };

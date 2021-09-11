@@ -38,8 +38,7 @@ export const register = async (
   };
 
   const regResponse = await fetch(`${apiUrl}/auth/signup`, requestOptions);
-  const regStatus = await handleResponse(regResponse);
-  console.log(regStatus);
+  await handleResponse(regResponse);
   // store user details and jwt token in local storage to keep user logged in
   return login(username, password);
 };

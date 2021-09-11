@@ -96,7 +96,6 @@ export class NoteService {
     if (ability.cannot(Action.Update, new Note(this.notes[idx]))) {
       throw new ForbiddenException('Not allowed to modify note');
     }
-    console.log(updateNoteDto);
     const newNote: Note = {
       ...this.notes[idx],
       title: updateNoteDto.title || this.notes[id].title,
