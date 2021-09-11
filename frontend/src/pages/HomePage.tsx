@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import toast from "react-simple-toasts";
 import EditModal from "../components/EditModal";
 import FAB from "../components/FAB";
 import NotesList from "../components/NotesList";
@@ -10,13 +9,13 @@ import {
   createNote,
   deleteNote,
 } from "../services/noteService";
+import { openToast } from "../utils/openToast";
 
 interface HomePageProps {
-  userId?: string;
   username?: string;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
+const HomePage: React.FC<HomePageProps> = ({ username }) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const [modalParams, setModalParams] = useState<{
@@ -26,7 +25,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
 
   useEffect(() => {
     getLatestNotes();
-  }, []);
+  }, [username]);
 
   const getLatestNotes = async () => {
     try {
@@ -34,7 +33,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
       return setNotes(notes);
     } catch (error) {
       console.log(error);
-      toast(JSON.stringify(error), 1000);
+      setNotes([]);
     }
   };
 
@@ -52,7 +51,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
       setVisible(false);
     } catch (error) {
       console.log(error);
-      toast(JSON.stringify(error));
+      openToast(error);
     }
   };
 
@@ -67,7 +66,7 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
       setVisible(false);
     } catch (error) {
       console.log(error);
-      toast(JSON.stringify(error));
+      openToast(error);
     }
   };
 
@@ -77,29 +76,37 @@ const HomePage: React.FC<HomePageProps> = ({ userId, username }) => {
       getLatestNotes();
     } catch (error) {
       console.log(error);
-      toast(JSON.stringify(error));
+      openToast(error);
     }
   };
 
   return (
     <>
-      <EditModal
-        isVisible={visible}
-        handleClose={() => setVisible(false)}
-        type={modalParams.type}
-        targetNote={modalParams.targetNote}
-        onCreate={onCreate}
-        onEdit={onEdit}
-      />
+      {visible && (
+        <EditModal
+          handleClose={() => setVisible(false)}
+          targetNote={modalParams.targetNote}
+          onCreate={onCreate}
+          onEdit={onEdit}
+        />
+      )}
       <div className="flex-grow quicksand overflow-y-auto">
         <div className="flex flex-col flex-1 max-w-5xl m-auto relative h-notesHeight">
           <h1 className="text-5xl font-semibold text-center my-6 ">
             Hello {username || "there"}!
           </h1>
+
           <NotesList notes={notes} onEdit={onEditPress} onDelete={onDelete} />
-          <div className="sticky ml-auto mr-5 bottom-3">
-            <FAB onClick={onCreatePress} />
-          </div>
+
+          {username ? (
+            <div className="sticky ml-auto mr-5 bottom-3">
+              <FAB onClick={onCreatePress} />
+            </div>
+          ) : (
+            <text className="text-lg font-semibold text-center my-6 ">
+              Please login to view shared notes
+            </text>
+          )}
         </div>
       </div>
     </>

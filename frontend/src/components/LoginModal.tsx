@@ -1,22 +1,28 @@
 import React, { useState } from "react";
+import { login, userDetails } from "../services/authService";
 import Button from "./Button";
+import { openToast } from "../utils/openToast";
 
 interface SignInModalProps {
-  isVisible: boolean;
   handleClose: () => void;
-  onSignUp: () => void;
+  onClickSignUp: () => void;
+  completionCallback: (user: userDetails) => void;
 }
 
 const LoginModal: React.FC<SignInModalProps> = ({
-  isVisible = false,
   handleClose,
+  onClickSignUp,
+  completionCallback,
 }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  if (!isVisible) {
-    return null;
-  }
+  const signin = () => {
+    return login(username, password)
+      .then(completionCallback)
+      .then(handleClose)
+      .catch(openToast);
+  };
 
   return (
     <div
@@ -70,7 +76,7 @@ const LoginModal: React.FC<SignInModalProps> = ({
                 </span>
                 <input
                   type="password"
-                  id="sign-in-email"
+                  id="sign-in-password"
                   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Your password"
                   value={password}
@@ -79,7 +85,7 @@ const LoginModal: React.FC<SignInModalProps> = ({
               </div>
             </div>
             <div className="flex w-full mb-4">
-              <Button type={"submit"} onClick={() => handleClose()}>
+              <Button type={"submit"} onClick={signin}>
                 Login
               </Button>
             </div>
@@ -87,7 +93,7 @@ const LoginModal: React.FC<SignInModalProps> = ({
         </div>
         <div className="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
           <button
-            onClick={(e) => console.log(e)}
+            onClick={onClickSignUp}
             className="inline-flex items-center text-sm font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white hover:underline"
           >
             <span className="ml-2">You don't have an account?</span>

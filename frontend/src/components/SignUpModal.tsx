@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import { register, userDetails } from "../services/authService";
+import { openToast } from "../utils/openToast";
 import Button from "./Button";
 
 interface SignUpModalProps {
-  isVisible: boolean;
   handleClose: () => void;
-  onHaveAccount: () => void;
+  onClickHaveAccount: () => void;
+  completionCallback: (user: userDetails) => void;
 }
 
 const SignUpModal: React.FC<SignUpModalProps> = ({
-  isVisible = false,
   handleClose,
-  onHaveAccount,
+  onClickHaveAccount,
+  completionCallback,
 }) => {
-  if (!isVisible) {
-    return null;
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signup = () => {
+    return register(username, password)
+      .then(completionCallback)
+      .then(handleClose)
+      .catch(openToast);
+  };
 
   return (
     <div
@@ -45,9 +53,11 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
                 </span>
                 <input
                   type="text"
-                  id="sign-in-username"
+                  id="sign-up-username"
                   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
@@ -66,20 +76,22 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
                 </span>
                 <input
                   type="password"
-                  id="sign-in-email"
+                  id="sign-up-password"
                   className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
             <div className="flex w-full mb-4">
-              <Button onClick={() => onHaveAccount()}>Sign Up</Button>
+              <Button onClick={signup}>Sign Up</Button>
             </div>
           </form>
         </div>
         <div className="justify-center text-sm text-center text-gray-500 flex-items-center dark:text-gray-400">
           <button
-            onClick={() => onHaveAccount()}
+            onClick={() => onClickHaveAccount()}
             className="inline-flex items-center text-sm font-thin text-center text-gray-500 hover:text-gray-700 dark:text-gray-100 dark:hover:text-white hover:underline"
           >
             Already have an account?

@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
           <div>2021 &copy; NotesKeeper</div>
           <div>
             <a
-              href="https://github.com/ofnullable/react-spa-template"
+              href="https://github.com/JinHao-L/crud-application"
               rel="noopener noreferrer"
               target="_blank"
             >
