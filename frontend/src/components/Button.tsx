@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  type='button',
+  type = "button",
   onClick,
   children,
   buttonColor = "purple",
@@ -18,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
+      style={{ color: textColor }}
       className={`py-2 px-4 bg-${buttonColor}-600 hover:bg-${buttonColor}-700 focus:ring-${buttonColor}-500 focus:ring-offset-${buttonColor}-200 text-${textColor} transition ease-in duration-200 text-center text-base shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg my-auto w-full`}
     >
       {children}
