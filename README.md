@@ -45,26 +45,27 @@ Build a frontend Single Page Application (SPA) using React, Vue or any
 
 ## C: Authorization & Authentication
 ### Authentication
-Passport module
-- Local strategy for username/password login
-  - Bcrypt for secure one-way salted hash
-JWT
-- Use `@nestjs/jwt` for JWT manipulation
-- Use `passport-jwt` for JWT strategy
-Authentication Guard 
-- to prevent unauthenticated access to `/notes` and `/users` endpoints
+* [Passport](https://github.com/jaredhanson/passport) module
+  * [Local strategy](http://www.passportjs.org/packages/passport-local/) for username/password login
+* Secure password storage
+  * Bcrypt for secure one-way salted hash
+* JWT
+  * Use `@nestjs/jwt` for JWT manipulation
+  * Use `passport-jwt` for [JWT strategy](http://www.passportjs.org/packages/passport-jwt/)
+  * Authentication Guard
+    * to prevent unauthenticated access to `/notes` and `/users` endpoints
 
 ### Authorization
-Role-based access control:
-- Implemented by assigning roles `admin || user` to users
-- Only user with 'admin' role can access `GET /users` endpoint to see list of users
+* Role-based access control:
+  - Implemented by assigning roles `admin || user` to users
+  - Only user with 'admin' role can access `GET /users` endpoint to see list of users
 
-### Attribute-based access control:
-- Implemented using [CASL](https://casl.js.org/) library
-- User has read-only access to all notes
-- User can update or delete their own notes
-- User can create new note
-- Admin can manage (create/read/update/delete) all notes
+* Attribute-based access control:
+  - Implemented using [CASL](https://casl.js.org/) library
+  - User has read access to all notes
+  - User can create new note
+  - User can only update or delete their own notes
+  - Admin can manage (create/read/update/delete) all notes
 
 ## Tech Stack
 * Backend: NestJS
